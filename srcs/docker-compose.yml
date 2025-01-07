@@ -1,0 +1,102 @@
+version: '3'
+
+#secrets
+secrets:
+  credentials:
+    file : ../secrets/credentials.txt
+  db_password:
+    file : ../secrets/db_password.txt
+  db_root_password:
+    file : ../secrets/db_root_password.txt
+
+#network
+networks:
+  net :
+    driver : bridge  
+
+#volume
+volumes:
+  database_volume:
+    driver_opts:
+      device: /home/${USER}/data/database_volume
+      o: bind
+      type: none
+  wordpress_volume:
+    driver_opts:
+      device: /home/${USER}/data/wordpress_volume
+      o: bind
+      type: none
+
+#services
+
+services:
+  #database
+  mariadb :
+    build :
+      context: ./requirements/mariadb
+    container_name : mariadb
+    networks :
+      - net
+    volumes :
+      - database_volume:/var/lib/mysql
+    secrets :
+      - credentials
+      - db_password
+      - db_root_password
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+    expose :
+      - 3306
+    ports :
+      - "3306:3306"
+  #wordpress
+  wordpress :
+    build :
+      context : ./requirements/wordpress
+    container_name : wordpress
+    networks :
+      - net
+    volumes :
+      - wordpress_volume:/var/www/html/wordpress
+    secrets :
+      - credentials
+      - db_password
+      - db_root_password    
+    environment :
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_HOST=${DB_HOST}
+      - WP_TITLE=${WP_TITLE}
+    expose :
+      - 9000
+    ports :
+      - "9000:9000"
+    #nginx
+  nginx :
+    build :
+      context : ./requirements/nginx
+    container_name : nginx
+    networks :
+      - net
+    volumes :
+      - wordpress_volume:/var/www/html/wordpress
+    secrets :
+      - credentials
+      - db_password
+      - db_root_password
+    expose :
+      - 80
+      - 443
+    ports :
+      - "80:80"
+      - "443:443"
+    depends_on :
+      - wordpress
+      - mariadb
+    environment :
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+    
