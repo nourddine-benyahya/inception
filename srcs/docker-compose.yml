@@ -32,9 +32,11 @@ volumes:
 services:
   #database
   mariadb :
+    image : mariadb:impermeable
     build :
       context: ./requirements/mariadb
     container_name : mariadb
+    restart: unless-stopped
     networks :
       - net
     volumes :
@@ -52,9 +54,11 @@ services:
       - "3306:3306"
   #wordpress
   wordpress :
+    image : wordpress:impermeable
     build :
       context : ./requirements/wordpress
     container_name : wordpress
+    restart: unless-stopped
     networks :
       - net
     volumes :
@@ -72,11 +76,15 @@ services:
       - 9000
     ports :
       - "9000:9000"
-    #nginx
+    depends_on :
+      - mariadb
+  #nginx
   nginx :
+    image : nginx:impermeable
     build :
       context : ./requirements/nginx
     container_name : nginx
+    restart: unless-stopped
     networks :
       - net
     volumes :
