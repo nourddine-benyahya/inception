@@ -36,7 +36,7 @@ services:
     build :
       context: ./requirements/mariadb
     container_name : mariadb
-    restart: unless-stopped
+    # restart: unless-stopped
     networks :
       - net
     volumes :
@@ -58,7 +58,7 @@ services:
     build :
       context : ./requirements/wordpress
     container_name : wordpress
-    restart: unless-stopped
+    # restart: unless-stopped
     networks :
       - net
     volumes :
@@ -84,7 +84,7 @@ services:
     build :
       context : ./requirements/nginx
     container_name : nginx
-    restart: unless-stopped
+    # restart: unless-stopped
     networks :
       - net
     volumes :
@@ -105,6 +105,39 @@ services:
     environment :
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
       - DB_HOST=${DB_HOST}
-    
+  redis :
+    image : redis:impermeable
+    build :
+      context : ./requirements/redis
+    container_name : redis
+    # restart: unless-stopped
+    volumes :
+      - wordpress_volume:/var/www/html/wordpress
+    networks :
+      - net
+    expose :
+      - 6379
+    ports :
+      - "6379:6379"
+    depends_on :
+      - wordpress
+  ftp :
+    image : ftp:impermeable
+    build :
+      context : ./requirements/ftp
+    container_name : ftp
+    # restart: unless-stopped
+    volumes :
+      - wordpress_volume:/var/www/html/wordpress
+    networks :
+      - net
+    expose :
+      - 21
+    ports :
+      - "21:21"
+    depends_on :
+      - nginx
+      - wordpress
+      - redis
+      - mariadb

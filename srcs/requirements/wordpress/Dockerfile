@@ -4,6 +4,7 @@ RUN apt-get clean && apt-get update && apt-get install -y \
     php-cgi \
     php-common \
     php-fpm \
+    php-redis \
     php-mbstring \
     php-mysql \
     php-zip \
