@@ -27,9 +27,12 @@ wp user create ${WP_USER_USERNAME} ${WP_USER_EMAIL} --role=subscriber --user_pas
 wp theme install twentytwentyfour --allow-root
 wp theme activate twentytwentyfour --allow-root
 
-wp plugin install redis-cache --activate --allow-root
+chmod -R 777 /var/www/html/wordpress
+chown -R www-data:www-data /var/www/html/wordpress
+
 wp config set WP_REDIS_HOST redis --allow-root
-wp config set WP_REDIS_PORT 6379 --allow-root
+wp config set WP_REDIS_PORT 6379 --raw --allow-root
+wp plugin install redis-cache --activate --allow-root
 wp redis enable --allow-root
 cd -
 # configure php-fpm

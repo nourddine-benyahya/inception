@@ -112,8 +112,6 @@ services:
       context : ./requirements/redis
     container_name : redis
     # restart: unless-stopped
-    volumes :
-      - wordpress_volume:/var/www/html/wordpress
     networks :
       - net
     expose :
@@ -122,22 +120,22 @@ services:
       - "6379:6379"
     depends_on :
       - wordpress
-  ftp :
-    image : ftp:impermeable
-    build :
-      context : ./requirements/ftp
-    container_name : ftp
-    # restart: unless-stopped
-    volumes :
-      - wordpress_volume:/var/www/html/wordpress
-    networks :
-      - net
-    expose :
-      - 21
-    ports :
-      - "21:21"
-    depends_on :
-      - nginx
-      - wordpress
-      - redis
-      - mariadb
+  # ftp :
+  #   image : ftp:impermeable
+  #   build :
+  #     context : ./requirements/ftp
+  #   container_name : ftp
+  #   # restart: unless-stopped
+  #   volumes :
+  #     - wordpress_volume:/var/www/html/wordpress
+  #   networks :
+  #     - net
+  #   expose :
+  #     - 21
+  #   ports :
+  #     - "21:21"
+  #   depends_on :
+  #     - nginx
+  #     - wordpress
+  #     - redis
+  #     - mariadb
