@@ -111,7 +111,7 @@ services:
   redis :
     image : redis:impermeable
     build :
-      context : ./requirements/redis
+      context : ./requirements/bonus/redis
     container_name : redis
     # restart: unless-stopped
     networks :
@@ -125,7 +125,7 @@ services:
   codvisor :
     image : codvisor:impermeable
     build :
-      context : ./requirements/codvisor
+      context : ./requirements/bonus/codvisor
     container_name : codvisor
     # restart: unless-stopped
     networks :
@@ -139,7 +139,7 @@ services:
   adminer :
     image : adminer:impermeable
     build :
-      context : ./requirements/adminer
+      context : ./requirements/bonus/adminer
     container_name : adminer
     # restart: unless-stopped
     networks :
@@ -153,7 +153,7 @@ services:
   staticWeb:
     image : staticweb:impermeable
     build :
-      context : ./requirements/staticWeb
+      context : ./requirements/bonus/staticWeb
     container_name : staticWeb
     # restart: unless-stopped
     networks :
@@ -161,18 +161,20 @@ services:
     ports :
       - "4242:4242"
 
-#ftp
-  ftp :
-    image : ftp:impermeable
-    build :
-      context : ./requirements/ftp
-    container_name : ftp
-    # restart: unless-stopped
-    networks :
+# FTP Service
+  ftp:
+    build:
+      context: ./requirements/bonus/ftp
+    container_name: ftp
+    networks:
       - net
-    ports :
-      - "21:21"
-    volumes :
+    volumes:
       - wordpress_volume:/var/www/html/wordpress
-    depends_on :
+    ports:
+      - "21:21"
+      - "30000-30100:30000-30100"
+    environment:
+      - FTP_USER=ftpuser
+      - FTP_PASS=ftppassword
+    depends_on:
       - wordpress

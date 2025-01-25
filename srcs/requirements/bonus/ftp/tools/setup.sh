@@ -1,26 +1,19 @@
-#!/bin/sh
+#!/bin/bash
 
-sed -i 's/^#anonymous_enable=YES/anonymous_enable=NO/' /etc/vsftpd.conf
-sed -i 's/^#write_enable=YES/write_enable=YES/' /etc/vsftpd.conf
-sed -i 's/^#chroot_local_user=YES/chroot_local_user=YES/' /etc/vsftpd.conf
-# //allow writable chroot
-echo "allow_writeable_chroot=YES" >> /etc/vsftpd.conf
-#min and max port
-echo "pasv_min_port=30000" >> /etc/vsftpd.conf
-echo "pasv_max_port=30010" >> /etc/vsftpd.conf
+# Create the FTP user and set the password
+FTP_USER="ftpuser"
+FTP_PASS="ftppassword"
 
-#create ftp user
-chown -R www-data:www-data /var/www/html
-chmod -R 755 /var/www/html
-adduser ftpuser
-usermod -d /var/www/html/wordpress ftpuser
-usermod -aG www-data ftpuser
+# Create the user without creating the home directory
+useradd -M -d /var/www/html/wordpress -s /bin/bash $FTP_USER
+echo "$FTP_USER:$FTP_PASS" | chpasswd
 
-#bind 0.0.0.0
-echo "listen=YES" >> /etc/vsftpd.conf
-echo "listen_ipv6=NO" >> /etc/vsftpd.conf
-echo "listen_address=0.0.0.0" >> /etc/vsftpd.conf
+chown -R $FTP_USER:$FTP_USER /var/www/html/wordpress
+chmod -R a-w /var/www/html/wordpress
 
+mkdir -p /var/run/vsftpd/empty
+chown -R $FTP_USER:$FTP_USER /var/run/vsftpd/empty
+chmod -R a-w /var/run/vsftpd/empty
 
+# Start vsftpd
 /usr/sbin/vsftpd /etc/vsftpd.conf
-yes > /dev/null
