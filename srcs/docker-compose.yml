@@ -38,7 +38,7 @@ services:
     build :
       context: ./requirements/mariadb
     container_name : mariadb
-    # restart: unless-stopped
+    restart: always
     networks :
       - net
     volumes :
@@ -60,7 +60,7 @@ services:
     build :
       context : ./requirements/wordpress
     container_name : wordpress
-    # restart: unless-stopped
+    restart: always
     networks :
       - net
     volumes :
@@ -86,7 +86,7 @@ services:
     build :
       context : ./requirements/nginx
     container_name : nginx
-    # restart: unless-stopped
+    restart: always
     networks :
       - net
     volumes :
@@ -113,7 +113,7 @@ services:
     build :
       context : ./requirements/bonus/redis
     container_name : redis
-    # restart: unless-stopped
+    restart: always
     networks :
       - net
     ports :
@@ -127,7 +127,7 @@ services:
     build :
       context : ./requirements/bonus/codvisor
     container_name : codvisor
-    # restart: unless-stopped
+    restart: always
     networks :
       - net
     ports :
@@ -141,7 +141,7 @@ services:
     build :
       context : ./requirements/bonus/adminer
     container_name : adminer
-    # restart: unless-stopped
+    restart: always
     networks :
       - net
     ports :
@@ -155,7 +155,7 @@ services:
     build :
       context : ./requirements/bonus/staticWeb
     container_name : staticWeb
-    # restart: unless-stopped
+    restart: always
     networks :
       - net
     ports :
@@ -163,6 +163,7 @@ services:
 
 # FTP Service
   ftp:
+    image : staticweb:impermeable
     build:
       context: ./requirements/bonus/ftp
     container_name: ftp
@@ -173,8 +174,7 @@ services:
     ports:
       - "21:21"
       - "30000-30100:30000-30100"
-    environment:
-      - FTP_USER=ftpuser
-      - FTP_PASS=ftppassword
+    secrets:
+      - credentials
     depends_on:
       - wordpress
