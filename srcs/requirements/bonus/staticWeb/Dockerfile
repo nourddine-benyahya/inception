@@ -1,6 +1,6 @@
-FROM debian:12
+FROM alpine:3.20
 
-RUN apt-get update && apt-get install -y python3
+RUN apk update && apk add python3
 
 WORKDIR /app
 COPY ./tools/index.html /app/

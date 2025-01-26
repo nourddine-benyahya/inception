@@ -6,7 +6,7 @@ RUN apt-get update \
     && openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout /etc/nginx/ssl/nginx-selfsigned.key \
     -out /etc/nginx/ssl/nginx-selfsigned.crt \
-    -subj "/CN=nourddine.benyahya02.com"
+    -subj "/CN=nbenyahy.42.fr"
 
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
