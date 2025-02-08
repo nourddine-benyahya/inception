@@ -106,7 +106,7 @@ Docker Compose simplifies multi-container management using a `docker-compose.yml
 - **docker-containerd-shim**: Ensures containers remain running after containerd exits.
 
 ## 🛠️ Installation & Usage
-  Prerequisites
+  #### Prerequisites
 
   - Docker & Docker Compose
 
@@ -114,7 +114,7 @@ Docker Compose simplifies multi-container management using a `docker-compose.yml
 
   - Proper directory permissions
 
-  Configuration
+  #### Configuration
 
   - Clone repository:
       ```bash
@@ -123,12 +123,15 @@ Docker Compose simplifies multi-container management using a `docker-compose.yml
 
   - Set up secrets:
       ```bash
-      cp secrets/example.*.txt secrets/production/
+      cp secrets/example.*.txt secrets/same_name_with_out_eaxmple.txt
+      ```
+        ```bash
+      cp srcs/example.env srcs/.env
       ```
 
-      Edit .env file with your credentials
+  - Edit .env and secrets file with your credentials
 
-  To build and start the project, run
+  #### To build and start the project, run
 
   - This will execute Docker Compose to build and start all defined services.
       ```bash
@@ -145,13 +148,13 @@ Docker Compose simplifies multi-container management using a `docker-compose.yml
 
 Access Services
 
-    WordPress: https://localhost
+  - WordPress: https://localhost
 
-    codvisor: http://localhost:8080
+  - codvisor: http://localhost:8080
 
-    Adminer: http://localhost:9090
+  - Adminer: http://localhost:9090
 
-    Static Site: http://localhost:4242
+  - Static Site: http://localhost:4242
 
 
 ## Conclusion
