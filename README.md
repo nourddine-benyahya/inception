@@ -130,17 +130,15 @@ Docker Compose simplifies multi-container management using a `docker-compose.yml
 
   To build and start the project, run
 
+  - This will execute Docker Compose to build and start all defined services.
       ```bash
       make
       ```
-      This will execute Docker Compose to build and start all defined services.
-
-      ## Cleaning Up
-      To stop and remove containers, run:
+  - To stop and remove containers, run:
       ```bash
       make clean
       ```
-      To remove all images, volumes, and networks, run:
+  - To remove all images, volumes, and networks, run:
       ```bash
       make fclean
     ```
