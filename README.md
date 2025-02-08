@@ -2,7 +2,7 @@
 
 ## Introduction
 Inception is a project from 42 school focused on Docker and containerization. The goal is to create a fully functional multi-container infrastructure using Docker Compose, managing services efficiently while leveraging volumes, networks, and Docker best practices.
-
+<img src="./docekr_diagramme.png">
 ## Table of Contents
 - [Introduction](#introduction)
 - [Docker Concepts Overview](#-docker-concepts-overview)
@@ -22,6 +22,7 @@ Inception is a project from 42 school focused on Docker and containerization. Th
   - [To remove all images, volumes, and networks, run](#to-remove-all-images-volumes-and-networks-run)
   - [Access Services](#access-services)
 - [Conclusion](#conclusion)
+
 
 ## 📦 Docker Concepts Overview
 ### 🖼️ Docker Images & Containers
