@@ -1,20 +1,27 @@
-# Inception - 42 Project Devops Projects
+# Inception - Devops Projects 
 
 ## Introduction
 Inception is a project from 42 school focused on Docker and containerization. The goal is to create a fully functional multi-container infrastructure using Docker Compose, managing services efficiently while leveraging volumes, networks, and Docker best practices.
 
 ## Table of Contents
-- [Docker Basics](#docker-basics)
-  - [Images and Containers](#images-and-containers)
-  - [Dockerfile](#dockerfile)
-  - [Volumes (Bind Mount)](#volumes-bind-mount)
-  - [Docker Networks (Bridge)](#docker-networks-bridge)
-  - [Docker Compose](#docker-compose)
-- [Project Structure](#project-structure)
-- [Services Overview](#services-overview)
-- [Docker Runtime Explanation](#docker-runtime-explanation)
-- [How to Run the Project](#how-to-run-the-project)
-- [Cleaning Up](#cleaning-up)
+- [Introduction](#introduction)
+- [Docker Concepts Overview](#-docker-concepts-overview)
+  - [Docker Images & Containers](#-docker-images--containers)
+  - [Dockerfile](#-dockerfile)
+  - [Volumes (Bind Mounts)](#-volumes-bind-mounts)
+  - [Docker Network (Bridge)](#-docker-network-bridge)
+  - [Docker Compose](#-docker-compose)
+- [Project Structure](#-project-structure)
+- [Services Overview](#-services-overview)
+- [Docker Runtime Architecture Explanation](#-docker-runtime-architecture-explanation)
+- [Installation & Usage](#-installation--usage)
+  - [Prerequisites](#prerequisites)
+  - [Configuration](#configuration)
+  - [To build and start the project, run](#to-build-and-start-the-project-run)
+  - [To stop and remove containers, run](#to-stop-and-remove-containers-run)
+  - [To remove all images, volumes, and networks, run](#to-remove-all-images-volumes-and-networks-run)
+  - [Access Services](#access-services)
+- [Conclusion](#conclusion)
 
 ## 📦 Docker Concepts Overview
 ### 🖼️ Docker Images & Containers
@@ -24,13 +31,13 @@ A Docker image is a blueprint for running an application. A container is a runni
 Each service in this project is built from a `Dockerfile`, defining the base image, dependencies, and configurations required to run the service.
 Blueprint for building images containing:
 
-    - Base image
+  - Base image
 
-    - Dependencies
+  - Dependencies
 
-    - Configuration files
+  - Configuration files
 
-    - Startup commands
+  - Startup commands
 
 ### 📂 Volumes (Bind Mounts)
 Volumes store persistent data. In this project, bind mounts are used to link directories on the host to directories inside the container, ensuring data persistence between restarts.
@@ -122,10 +129,12 @@ Docker Compose simplifies multi-container management using a `docker-compose.yml
       ```
 
   - Set up secrets:
+
       ```bash
       cp secrets/example.*.txt secrets/same_name_with_out_eaxmple.txt
       ```
-        ```bash
+
+      ```bash
       cp srcs/example.env srcs/.env
       ```
 
