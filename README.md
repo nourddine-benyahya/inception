@@ -117,12 +117,12 @@ Docker Compose simplifies multi-container management using a `docker-compose.yml
 
   Configuration
 
-    - Clone repository:
+  - Clone repository:
       ```bash
       git clone https://github.com/nourddine-benyahya/inception
       ```
 
-    - Set up secrets:
+  - Set up secrets:
       ```bash
       cp secrets/example.*.txt secrets/production/
       ```
