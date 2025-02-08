@@ -3,9 +3,9 @@
 export $(cat /run/secrets/credentials | xargs)
 
 if [ -z "$FTP_USER" ] || [ -z "$FTP_PASSWORD" ]; then
-    echo "Error: FTP_USER or FTP_PASSWORD is not set."
+    echo "FTP_USER and FTP_PASSWORD must be set"
     exit 1
-fi
+fi      
 
 useradd -M -d /var/www/html/wordpress -s /bin/bash $FTP_USER
 echo "$FTP_USER:$FTP_PASSWORD" | chpasswd

@@ -10,4 +10,4 @@ chown -R www-data:www-data /var/www/html/
 
 chmod -R 755 /var/www/html/
 
-php -S  0.0.0.0:9090 -t /var/www/html
+exec php -S  0.0.0.0:9090 -t /var/www/html

@@ -3,8 +3,8 @@
 DB_ROOT_PASSWORD=$(cat "/run/secrets/db_root_password")
 DB_PASSWORD=$(cat "/run/secrets/db_password")
 
-if [ -z "$DB_NAME" ] || [ -z "$DB_USER" ] || [ -z "$DB_ROOT_PASSWORD" ] || [ -z "$DB_PASSWORD" ] ; then
-    echo "Error: DB_NAME or DB_USER or DB_ROOT_PASSWORD or DB_PASSWORD is not set."
+if [ -z "$DB_ROOT_PASSWORD" ] || [ -z "$DB_PASSWORD" ]; then
+    echo "DB_ROOT_PASSWORD and DB_PASSWORD must be set"
     exit 1
 fi
 

@@ -31,7 +31,6 @@ volumes:
 
 services:
 
-
   #database
   mariadb :
     image : mariadb:impermeable
@@ -50,8 +49,6 @@ services:
     environment:
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
-    ports :
-      - "3306:3306"
 
 
   #wordpress
@@ -74,11 +71,8 @@ services:
       - DB_USER=${DB_USER}
       - DB_HOST=${DB_HOST}
       - WP_TITLE=${WP_TITLE}
-    ports :
-      - "9000:9000"
     depends_on :
       - mariadb
-
 
   #nginx
   nginx :
@@ -105,7 +99,7 @@ services:
       - DB_USER=${DB_USER}
       - DB_HOST=${DB_HOST}
 
-#### BOONUS ####
+#### BOONUS PART ####
 
 #redis
   redis :
@@ -116,8 +110,6 @@ services:
     restart: always
     networks :
       - net
-    ports :
-      - "6379:6379"
     depends_on :
       - wordpress
 
@@ -134,6 +126,10 @@ services:
       - "8080:8080"
     depends_on :
       - wordpress
+      - ftp
+      - redis
+      - adminer
+      - staticWeb
 
 #adminer
   adminer :
@@ -163,10 +159,11 @@ services:
 
 # FTP Service
   ftp:
-    image : staticweb:impermeable
+    image : ftp:impermeable
     build:
       context: ./requirements/bonus/ftp
     container_name: ftp
+    restart: always
     networks:
       - net
     volumes:
