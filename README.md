@@ -106,13 +106,14 @@ Docker Compose simplifies multi-container management using a `docker-compose.yml
 - **docker-containerd-shim**: Ensures containers remain running after containerd exits.
 
 ## 🛠️ Installation & Usage
-  Prerequisites
-
-    - Docker & Docker Compose
-
-    - GNU Make
-
-    - Proper directory permissions
+  <ol>
+    <li>Prerequisites</li>
+    <ul>
+      <li>Docker & Docker Compose</li>
+      <li>GNU Make</li>
+      <li>Proper directory permissions</li>
+    </ul>
+  </ol>
 
   Configuration
 
